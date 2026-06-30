@@ -33,6 +33,16 @@ function readOnnxProvider(value) {
   return provider;
 }
 
+function readInventoryBackend(value) {
+  const backend = value || "airtable";
+
+  if (!["airtable", "local"].includes(backend)) {
+    throw new Error(`Unsupported inventory backend: ${backend}`);
+  }
+
+  return backend;
+}
+
 function loadConfig() {
   const serviceName =
     process.env.SEGTORI_SERVICE_NAME ||
@@ -86,6 +96,12 @@ function loadConfig() {
       ingestDir:
         process.env.SCAN_JOB_INGEST_DIR ||
         path.resolve(__dirname, "..", "process"),
+    },
+    inventory: {
+      backend: readInventoryBackend(process.env.INVENTORY_BACKEND),
+      localDbPath:
+        process.env.LOCAL_DB_PATH ||
+        path.resolve(__dirname, "..", "process", "inventory.sqlite"),
     },
     airtable: {
       apiToken: process.env.AIRTABLE_API_TOKEN || "",

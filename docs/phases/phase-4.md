@@ -8,11 +8,11 @@ Phase 4 adds a local inventory option for home or offline use while preserving t
 
 - [x] Establish a stable firmware-facing scan and quantity API.
 - [x] Implement the Airtable inventory backend.
-- [ ] Add `INVENTORY_BACKEND` selection.
-- [ ] Add a SQLite local inventory backend.
-- [ ] List and create local inventory items through the API.
-- [ ] Import local inventory from CSV or JSON.
-- [ ] Export local inventory to CSV or JSON.
+- [x] Add `INVENTORY_BACKEND` selection.
+- [x] Add a SQLite local inventory backend.
+- [x] List and create local inventory items through the API.
+- [x] Import local inventory from CSV or JSON.
+- [x] Export local inventory to CSV or JSON.
 
 ### Service Frontend
 
@@ -20,17 +20,17 @@ Phase 4 adds a local inventory option for home or offline use while preserving t
 - [x] Serve a primary inventory console at `/`.
 - [x] Render the same inventory console against Airtable and local backends.
 - [x] Hide quantity controls when the active backend is read-only.
-- [ ] Support quantity increment and decrement controls when the active backend is writable.
-- [ ] Prompt for one-time Airtable migration when local mode is empty and Airtable data is available.
+- [x] Support quantity increment and decrement controls when the active backend is writable.
+- [x] Prompt for one-time Airtable migration when local mode is empty and Airtable data is available.
 
 ### Exit Criteria
 
-- [ ] Airtable and local modes satisfy the same scan and quantity contract.
-- [ ] Switching inventory backends requires no firmware changes.
-- [ ] Local inventory persists across service restarts.
-- [ ] Imported inventory works with the Phase 2 matching layer.
-- [ ] The root inventory console works against both backends without changing its UI contract.
-- [ ] The scan-job log remains available at `/log` for diagnostics.
+- [x] Airtable and local modes satisfy the same scan and quantity contract.
+- [x] Switching inventory backends requires no firmware changes.
+- [x] Local inventory persists across service restarts.
+- [x] Imported inventory works with the Phase 2 matching layer.
+- [x] The root inventory console works against both backends without changing its UI contract.
+- [x] The scan-job log remains available at `/log` for diagnostics.
 
 ## Goals
 

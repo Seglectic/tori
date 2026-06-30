@@ -13,6 +13,9 @@ npm install
 npm run dev
 ```
 
+The service now uses the built-in `node:sqlite` module for the local inventory
+backend. Use Node 22.5 or newer for host development.
+
 Provision the host ONNX environment with:
 
 ```bash
@@ -62,6 +65,11 @@ docker compose down
 
 Copy `.env.example` to the untracked `.env` file and configure inventory
 credentials there. Do not commit `.env`.
+
+Set `INVENTORY_BACKEND=local` to use the local SQLite inventory database. When
+local mode starts with an empty database and valid Airtable read credentials,
+the root inventory console offers a one-time explicit Airtable import prompt.
+The import does not run automatically during startup.
 
 The production image contains Node.js, Python, RapidOCR, ONNX Runtime, CUDA and
 cuDNN runtime libraries, and the locked worker dependencies from `onnx/uv.lock`.

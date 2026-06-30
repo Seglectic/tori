@@ -15,7 +15,12 @@ const { createMatchTextRouter } = require("./routes/match-text");
 const { createScanRouter } = require("./routes/scan");
 const { startMdnsAdvertisement } = require("./services/discovery");
 const {
+  closeInventoryDatabases,
+  createInventoryItem,
+  exportLocalInventory,
   getInventoryCapabilities,
+  importAirtableIntoLocalInventory,
+  importLocalInventory,
   listInventoryItems,
   updateItemQuantity,
 } = require("./services/inventory");
@@ -75,7 +80,11 @@ function createApp(config, logger = console) {
   app.use(
     "/api/items",
     createItemsRouter({
+      exportLocalInventory,
+      createInventoryItem,
       getInventoryCapabilities,
+      importAirtableIntoLocalInventory,
+      importLocalInventory,
       listInventoryItems,
       updateItemQuantity,
     })
@@ -108,6 +117,7 @@ function createApp(config, logger = console) {
     stop() {
       liveJobFeed.stop();
       stopOnnxWorkers();
+      closeInventoryDatabases();
       if (discovery) {
         discovery.stop();
         discovery = null;

@@ -5,18 +5,19 @@ it when a capability is demonstrated end to end, not merely scaffolded.
 
 ## Current Position
 
-- Active phase: **Phase 4: Local Inventory Backend**
+- Active phase: **Phase 5: Device UX And Provisioning**
 - Phase 0: complete
 - Phase 1: complete
 - Phase 2: complete
 - Phase 3: complete
-- Phase 4: in progress
+- Phase 4: complete
+- Phase 5: in progress
 
 Phase 1 is complete as a read-only scan-and-identify MVP. Airtable inventory
 reads and ranked OCR-to-inventory candidates are available for Phase 2 accuracy
-work. Airtable writes remain intentionally disabled; quantity editing will be
-validated against the Phase 4 local backend before any explicit Airtable
-write-access decision.
+work. Airtable writes remain intentionally disabled, while the Phase 4 local
+SQLite backend now owns writable quantity editing, local item creation, file
+import/export, and explicit one-time Airtable migration.
 
 ## Phase 0: Project Scaffolding
 
@@ -219,10 +220,10 @@ the container health endpoint, completing Phase 3 service-discovery validation.
 
 ## Next Work Queue
 
-1. Add `INVENTORY_BACKEND` selection and the SQLite local inventory backend.
-2. Add the one-time Airtable-to-local migration path for empty databases.
-3. Enable writable quantity controls and item creation in local mode.
-4. Validate the existing scan and quantity contracts against local mode.
+1. Persist Wi-Fi and fallback server settings without recompiling firmware.
+2. Add on-device provisioning mode.
+3. Add candidate browsing and confirmation on handheld controls.
+4. Add quantity editing and submission on the device display workflow.
 
 ## Tracking Approach
 

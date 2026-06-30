@@ -86,3 +86,18 @@ test("rejects unknown ONNX providers", () => {
     }
   }
 });
+
+test("rejects unknown inventory backends", () => {
+  const previous = process.env.INVENTORY_BACKEND;
+  process.env.INVENTORY_BACKEND = "unknown";
+
+  try {
+    assert.throws(() => loadConfig(), /Unsupported inventory backend/);
+  } finally {
+    if (previous === undefined) {
+      delete process.env.INVENTORY_BACKEND;
+    } else {
+      process.env.INVENTORY_BACKEND = previous;
+    }
+  }
+});
