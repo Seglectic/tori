@@ -15,7 +15,7 @@ function renderInventoryDashboard(config) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Segtori Inventory</title>
+  <title>Tori Inventory</title>
   <style>
     :root{--bg:#0a0f11;--panel:#11181b;--panel2:#182126;--panel3:#0f1518;--line:#273237;--line2:#36515b;--text:#eef5f2;--muted:#91a39c;--accent:#d5ff5f;--accentSoft:rgba(213,255,95,.12);--warn:#ffc86a;--danger:#ff7f6e;--shadow:0 28px 80px rgba(0,0,0,.35)}
     *{box-sizing:border-box}html{background:radial-gradient(circle at top left, rgba(213,255,95,.06), transparent 32%),linear-gradient(180deg, #0d1417 0%, var(--bg) 32%, #081012 100%)}body{margin:0;color:var(--text);background:linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px) 0 0/36px 36px,linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px) 0 0/36px 36px;font:14px/1.45 "Bahnschrift","DIN Alternate","Segoe UI Variable","Segoe UI",sans-serif;min-height:100vh}
@@ -38,7 +38,7 @@ function renderInventoryDashboard(config) {
   <div class="shell">
     <header class="mast">
       <div>
-        <div class="eyebrow">Seglectic Tagged Object Recognition Interface</div>
+        <div class="eyebrow">Tagged Object Recognition Interface</div>
         <h1>Inventory Console</h1>
         <div class="subtitle">Browse the active inventory backend, inspect stock at a glance, and use the same control surface for Airtable today or the local SQLite backend in Phase 4.</div>
       </div>

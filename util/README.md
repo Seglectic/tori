@@ -1,4 +1,4 @@
-# Segtori Utilities
+# Tori Utilities
 
 Developer utilities live here. Local datasets and generated benchmark reports
 under `util/dataset/` are intentionally ignored by Git.
@@ -6,7 +6,7 @@ under `util/dataset/` are intentionally ignored by Git.
 ## OCR Dataset Benchmark
 
 `ocrBenchmark.js` submits the paired high- and low-resolution dataset images to
-a running Segtori service and writes a JSON report inside the ignored dataset
+a running Tori service and writes a JSON report inside the ignored dataset
 directory.
 
 ```bash

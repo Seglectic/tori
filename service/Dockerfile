@@ -1,5 +1,5 @@
 # ╭──────────────────────────────╮
-# │  Segtori OCR Service         │
+# │  Tori OCR Service            │
 # │  Packages Node and the locked│
 # │  RapidOCR ONNX worker.       │
 # ╰──────────────────────────────╯
@@ -11,7 +11,7 @@ WORKDIR /app
 ENV NODE_ENV=production \
     OCR_BACKEND=onnx \
     ONNX_PROVIDER=auto \
-    ONNX_PYTHON_PATH=/opt/segtori-onnx/bin/python \
+    ONNX_PYTHON_PATH=/opt/tori-onnx/bin/python \
     ONNX_WORKER_PATH=/app/onnx/worker.py \
     SCAN_JOB_INGEST_DIR=/app/process \
     SCAN_DEBUG_DIR=/app/process
@@ -35,7 +35,7 @@ RUN npm ci --omit=dev
 COPY onnx/pyproject.toml onnx/uv.lock ./onnx/
 RUN python3 -m venv /opt/uv \
     && /opt/uv/bin/pip install --no-cache-dir uv \
-    && UV_PROJECT_ENVIRONMENT=/opt/segtori-onnx \
+    && UV_PROJECT_ENVIRONMENT=/opt/tori-onnx \
        /opt/uv/bin/uv sync --frozen --no-dev --project /app/onnx \
     && rm -rf /root/.cache /opt/uv
 
@@ -46,7 +46,7 @@ COPY onnx/worker.py ./onnx/worker.py
 RUN mkdir -p /app/process \
     && chown -R node:node \
        /app/process \
-       /opt/segtori-onnx/lib/python3.11/site-packages/rapidocr/models
+       /opt/tori-onnx/lib/python3.11/site-packages/rapidocr/models
 
 USER node
 

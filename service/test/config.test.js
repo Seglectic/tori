@@ -26,19 +26,35 @@ test("defaults to the ONNX backend", () => {
   }
 });
 
-test("advertises the dashboard at tori.local by default", () => {
-  const previous = process.env.SEGTORI_MDNS_HOST;
-  delete process.env.SEGTORI_MDNS_HOST;
-
+function withEnv(values, run) {
+  const previous = Object.fromEntries(Object.keys(values).map((key) => [key, process.env[key]]));
+  for (const [key, value] of Object.entries(values)) {
+    if (value === undefined) delete process.env[key];
+    else process.env[key] = value;
+  }
   try {
-    assert.equal(loadConfig().mdnsHost, "tori.local");
+    run();
   } finally {
-    if (previous === undefined) {
-      delete process.env.SEGTORI_MDNS_HOST;
-    } else {
-      process.env.SEGTORI_MDNS_HOST = previous;
+    for (const [key, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
     }
   }
+}
+
+test("advertises the dashboard at tori.local by default", () => {
+  withEnv({ TORI_MDNS_HOST: undefined, SEGTORI_MDNS_HOST: undefined }, () => {
+    assert.equal(loadConfig().mdnsHost, "tori.local");
+  });
+});
+
+test("prefers TORI_ settings and still reads legacy SEGTORI_ settings", () => {
+  withEnv({ TORI_MDNS_NAME: undefined, SEGTORI_MDNS_NAME: "legacy" }, () => {
+    assert.equal(loadConfig().mdnsName, "legacy");
+  });
+  withEnv({ TORI_MDNS_NAME: "tori-bench", SEGTORI_MDNS_NAME: "legacy" }, () => {
+    assert.equal(loadConfig().mdnsName, "tori-bench");
+  });
 });
 
 test("rejects unknown OCR backends", () => {

@@ -1,6 +1,6 @@
 # RapidOCR ONNX Backend
 
-Segtori's Phase 2 ONNX backend uses RapidOCR with ONNX Runtime. It runs behind
+Tori's Phase 2 ONNX backend uses RapidOCR with ONNX Runtime. It runs behind
 the existing Node.js OCR boundary, so selecting it does not change the
 firmware-facing scan API.
 

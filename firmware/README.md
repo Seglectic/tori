@@ -1,6 +1,6 @@
 # Firmware
 
-The current firmware is an early ESP32-CAM testing scaffold that captures images with the onboard camera and relays scans to the Segtori service. The default hardware target is the nulllab ESP32-S3-CAM.
+The current firmware is an early ESP32-CAM testing scaffold that captures images with the onboard camera and relays scans to the Tori service. The default hardware target is the nulllab ESP32-S3-CAM.
 
 ## Supported Boards
 
@@ -34,7 +34,7 @@ The console accepts line-oriented commands:
 
 - `help` shows available commands
 - `status` prints the current device state as JSON
-- `health` checks the Segtori service
+- `health` checks the Tori service
 - `discover` retries service discovery
 - `preview` starts the camera, warms exposure, and pumps preview frames
 - `preview-off` shuts down the camera without scanning
@@ -56,7 +56,7 @@ flashlight on.
 This is not yet the final handheld UX described in the broader project docs. Right now, the firmware is best understood as:
 
 - a Wi-Fi + mDNS client
-- a thin relay to the Segtori OCR service
+- a thin relay to the Tori OCR service
 - a serial and physical-button capture interface
 
 ## What It Currently Owns
@@ -65,8 +65,8 @@ This is not yet the final handheld UX described in the broader project docs. Rig
 - half-linear-resolution JPEG capture for the current latency trial: 800×600 on
   OV2640 and 1024×768 on OV3660
 - Wi-Fi connection and retry behavior
-- mDNS startup and Segtori service discovery
-- periodic health checks against the Segtori service
+- mDNS startup and Tori service discovery
+- periodic health checks against the Tori service
 - image capture and multipart upload to `POST /api/scan`
 - local status tracking for debugging the current flow
 - per-snap camera initialization and shutdown to reduce idle power and stale frames
@@ -130,7 +130,7 @@ flowchart TD
         C[Validate camera, then shut it down]
         D[Connect to Wi-Fi]
         E[Start mDNS responder]
-        F[Discover Segtori service]
+        F[Discover Tori service]
         G[Health check /api/health]
         H[Set state to Ready]
         I[loop polls serial, Boot button,<br/>and network state]
@@ -142,14 +142,14 @@ flowchart TD
         O[Discard stale frames]
         P[Capture maximum-resolution JPEG]
         Q[Set state to Upload]
-        R[Send multipart POST /api/scan to Segtori service]
+        R[Send multipart POST /api/scan to Tori service]
         S[Return frame buffer and shut down camera]
         T[Return CPU to idle speed]
         U[Parse scanId, ocrText, match.id, match.name,<br/>match.quantity, match.score]
         V[Set state to Match or Error]
     end
 
-    subgraph SRV[Segtori Service]
+    subgraph SRV[Tori Service]
         W[Receive image at /api/scan]
         X[Persist scan job and image]
         Y[Run OCR]
@@ -176,7 +176,7 @@ flowchart TD
 ## Actual Request Flow Today
 
 The ESP32 is an HTTP client only. It uploads captured JPEGs directly to the
-Segtori service's `POST /api/scan` endpoint and periodically checks
+Tori service's `POST /api/scan` endpoint and periodically checks
 `GET /api/health`. It does not host a web server.
 
 The service hosts the browser-facing development dashboard. That dashboard
@@ -216,7 +216,7 @@ If service discovery fails:
 - the firmware falls back to `fallbackHost` and `fallbackPort` from `app_config.h`
 - later discovery attempts continue in the background
 
-If the Segtori service is not healthy:
+If the Tori service is not healthy:
 
 - scans are rejected with `service unavailable`
 - the state moves to `Error` or back to `Discovery`/waiting behavior depending on timing

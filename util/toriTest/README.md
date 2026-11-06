@@ -1,10 +1,10 @@
-# Segtori Server Tester
+# Tori Server Tester
 
-`toriTest.py` is a local developer utility for exercising the Segtori service without the ESP32 firmware.
+`toriTest.py` is a local developer utility for exercising the Tori service without the ESP32 firmware.
 
 It can:
 
-- discover the service over `_segtori-ocr._tcp.local`
+- discover the service over `_tori._tcp.local`
 - show health and connection metadata
 - upload an image to `POST /api/scan`
 - send manual text to `POST /api/match-text`
@@ -14,7 +14,7 @@ It can:
 
 - `uv`
 - Python 3.11 or newer
-- A running Segtori service on the local network or host
+- A running Tori service on the local network or host
 
 ## Setup
 

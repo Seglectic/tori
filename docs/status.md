@@ -1,4 +1,4 @@
-# Segtori Project Status
+# Tori Project Status
 
 This file tracks implementation progress against the phase documents. Update
 it when a capability is demonstrated end to end, not merely scaffolded.
@@ -35,7 +35,7 @@ import/export, and explicit one-time Airtable migration.
 - [x] Build firmware for the nulllab ESP32-S3-CAM.
 - [x] Keep the AI Thinker ESP32-CAM as a legacy build target.
 - [x] Join configured Wi-Fi.
-- [x] Discover the Segtori service with mDNS.
+- [x] Discover the Tori service with mDNS.
 - [x] Fall back to a configured service host.
 - [x] Trigger a snap with the onboard Boot button.
 - [x] Trigger a snap through the serial console.

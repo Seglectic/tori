@@ -1,7 +1,7 @@
 // ╭──────────────────────────────╮
-// │  Segtori Camera Client       │
+// │  Tori Camera Client          │
 // │  Captures fresh still images │
-// │  and sends them to Segtori.  │
+// │  and sends them to Tori.     │
 // ╰──────────────────────────────╯
 
 #include <Arduino.h>
@@ -60,7 +60,7 @@ const char kPageHtml[] PROGMEM = R"HTML(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Segtori Console</title>
+  <title>Tori Console</title>
   <style>
     :root{--bg:#0c1113;--panel:#12191d;--line:#273238;--text:#edf4ef;--muted:#96a6a0;--accent:#d4ff67;--warn:#ffb36b;--bad:#ff8d8d}
     *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at top,rgba(212,255,103,.12),transparent 24%),linear-gradient(180deg,#0b0f12,#10171a 60%,#0b1012);color:var(--text);font-family:"IBM Plex Mono","Menlo",monospace}
@@ -87,7 +87,7 @@ const char kPageHtml[] PROGMEM = R"HTML(
   <main>
     <div class="top">
       <div>
-        <div class="eyebrow">Seglectic Tagged Object Recognition Interface</div>
+        <div class="eyebrow">Tagged Object Recognition Interface</div>
         <h1>Scan Console</h1>
       </div>
       <div class="foot" id="ip">offline</div>
@@ -473,7 +473,7 @@ void discoverService(bool verbose = false) {
   }
 
   gLastDiscoveryMs = millis();
-  setStatus(ScreenState::kDiscoveringService, "Resolving Segtori service");
+  setStatus(ScreenState::kDiscoveringService, "Resolving Tori service");
   gServiceFromDiscovery = false;
   gState.serverHost = kAppConfig.fallbackHost;
   gState.serverPort = kAppConfig.fallbackPort;
@@ -882,7 +882,7 @@ ScanResult runScan() {
 
   if (!gServiceReachable) {
     fadeCameraFlashOut();
-    gLastError = "Segtori service unavailable";
+    gLastError = "Tori service unavailable";
     setStatus(ScreenState::kError, gLastError);
     result.statusCode = 503;
     result.body = "{\"ok\":false,\"error\":\"service unavailable\"}";
@@ -895,7 +895,7 @@ ScanResult runScan() {
   checkServiceHealth();
   if (!gServiceReachable) {
     fadeCameraFlashOut();
-    gLastError = "Segtori service unavailable";
+    gLastError = "Tori service unavailable";
     setStatus(ScreenState::kError, gLastError);
     result.statusCode = 503;
     result.body = "{\"ok\":false,\"error\":\"service unavailable\"}";
@@ -991,15 +991,15 @@ void printSerialHelp() {
   Serial.println("Commands:");
   Serial.println("  help      Show this command list");
   Serial.println("  status    Show device status");
-  Serial.println("  health    Check Segtori service health");
-  Serial.println("  discover  Rediscover the Segtori service");
+  Serial.println("  health    Check Tori service health");
+  Serial.println("  discover  Rediscover the Tori service");
   Serial.println("  preview      Start and warm the camera");
   Serial.println("  preview-off  Stop the camera without scanning");
   Serial.println("  snap         Capture from the warm camera and upload");
 }
 
 void printSerialPrompt() {
-  Serial.print("segtori> ");
+  Serial.print("tori> ");
 }
 
 void runSerialCommand(String command) {
@@ -1115,7 +1115,7 @@ void setup() {
   Serial.begin(115200);
   delay(1200);
   Serial.println();
-  Serial.println("[boot] Segtori firmware starting");
+  Serial.println("[boot] Tori firmware starting");
   tori::gDisplay.begin();
   esp_log_level_set("gdma", ESP_LOG_NONE);
   Serial.printf("[boot] chip=%s revision=%u flash=%u psram=%u\n",

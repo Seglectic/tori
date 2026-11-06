@@ -1,6 +1,6 @@
-# Segtori Documentation
+# Tori Documentation
 
-Segtori, the Seglectic Tagged Object Recognition Interface, is a handheld inventory device built around an ESP32-CAM and a small network OCR service. The device captures a label or tag image, sends it to a local server, receives the best matching inventory item, and lets the operator adjust quantity from the device controls.
+Tori, the Tagged Object Recognition Interface, is a handheld inventory device built around an ESP32-CAM and a small network OCR service. The device captures a label or tag image, sends it to a local server, receives the best matching inventory item, and lets the operator adjust quantity from the device controls.
 
 The project is split into two entry points:
 
@@ -10,13 +10,13 @@ The project is split into two entry points:
 
 ## Product Intent
 
-Segtori should feel like a compact modern field tool: crisp, fast, utilitarian, and purpose-built. The interface should be minimal, high-contrast, and easy to scan on a small screen. It should avoid battle-themed wording while still using a durable technical design language.
+Tori should feel like a compact modern field tool: crisp, fast, utilitarian, and purpose-built. The interface should be minimal, high-contrast, and easy to scan on a small screen. It should avoid battle-themed wording while still using a durable technical design language.
 
 The first useful version prioritizes a narrow loop:
 
 1. Press a hardware button.
 2. Capture an image with a supported OV2640 or OV3660 camera.
-3. Upload the image to the Segtori server.
+3. Upload the image to the Tori server.
 4. Run OCR with Tesseract.
 5. Match recognized text against inventory items.
 6. Return the best item match to the device.
@@ -50,7 +50,7 @@ Current checked progress and the immediate work queue live in [status.md](./stat
 - Portable OCR mode: the same RapidOCR ONNX worker using CPU execution.
 - Legacy diagnostic fallback: host-installed `tesseract` binary, outside the
   supported container deployment path.
-- Discovery: mDNS using `_segtori-ocr._tcp.local`.
+- Discovery: mDNS using `_tori._tcp.local`.
 - Inventory source: Airtable for Phase 1.
 - Local inventory backend: planned future support.
 

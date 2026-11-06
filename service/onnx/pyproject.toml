@@ -1,7 +1,7 @@
 [project]
-name = "segtori-onnx-ocr"
+name = "tori-onnx-ocr"
 version = "0.1.0"
-description = "RapidOCR ONNX worker for the Segtori service"
+description = "RapidOCR ONNX worker for the Tori service"
 requires-python = ">=3.11,<3.14"
 dependencies = [
   "onnxruntime-gpu[cuda,cudnn]==1.26.0",

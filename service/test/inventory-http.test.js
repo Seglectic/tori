@@ -20,7 +20,7 @@ async function withLocalServer(run) {
     LOCAL_DB_PATH: process.env.LOCAL_DB_PATH,
     OCR_BACKEND: process.env.OCR_BACKEND,
   };
-  const directory = await fs.mkdtemp(path.join(os.tmpdir(), "segtori-http-"));
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), "tori-http-"));
   process.env.INVENTORY_BACKEND = "local";
   process.env.LOCAL_DB_PATH = path.join(directory, "inventory.sqlite");
   process.env.OCR_BACKEND = "onnx";

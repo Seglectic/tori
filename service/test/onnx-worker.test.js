@@ -40,7 +40,7 @@ test("ONNX worker exposes command help", (context) => {
 });
 
 test("warns when automatic provider selection falls back to CPU", async () => {
-  const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "segtori-onnx-"));
+  const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "tori-onnx-"));
   const stubPath = path.join(tempRoot, "worker.js");
   const warnings = [];
 
@@ -80,7 +80,7 @@ test("warns when automatic provider selection falls back to CPU", async () => {
 });
 
 test("keeps a warm ONNX worker alive across requests", async () => {
-  const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "segtori-onnx-"));
+  const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "tori-onnx-"));
   const stubPath = path.join(tempRoot, "worker.js");
 
   await fs.writeFile(

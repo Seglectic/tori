@@ -79,7 +79,7 @@ test("broadcasts job updates over the dashboard WebSocket", async () => {
 });
 
 test("publishes ingested and completed job states", async () => {
-  const ingestDir = await fs.mkdtemp(path.join(os.tmpdir(), "segtori-jobs-"));
+  const ingestDir = await fs.mkdtemp(path.join(os.tmpdir(), "tori-jobs-"));
   const updates = [];
   const store = createScanJobStore(
     { scanJobs: { ingestDir } },
@@ -104,7 +104,7 @@ test("publishes ingested and completed job states", async () => {
 });
 
 test("deletes the persisted scan job directory", async () => {
-  const ingestDir = await fs.mkdtemp(path.join(os.tmpdir(), "segtori-jobs-"));
+  const ingestDir = await fs.mkdtemp(path.join(os.tmpdir(), "tori-jobs-"));
   const store = createScanJobStore({ scanJobs: { ingestDir } });
   const file = {
     buffer: Buffer.from("image"),

@@ -23,9 +23,9 @@ struct AppConfig {
 constexpr AppConfig kAppConfig{
     "replace-me",
     "replace-me",
-    "segtori-device",
-    "segtori-ocr",
-    "segtori-ocr.local",
+    "tori-device",
+    "tori",
+    "tori.local",
     8674,
     15000,
     15000,

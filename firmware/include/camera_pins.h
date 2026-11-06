@@ -8,7 +8,7 @@
 
 namespace tori {
 
-#if defined(SEGTORI_CAMERA_NULLLAB_ESP32S3)
+#if defined(TORI_CAMERA_NULLLAB_ESP32S3)
 
 constexpr int kCameraPinPwdn = -1;
 constexpr int kCameraPinReset = -1;
@@ -29,7 +29,7 @@ constexpr int kCameraPinPclk = 13;
 constexpr int kCameraFlashPin = 3;
 constexpr int kSnapButtonPin = 0;
 
-#elif defined(SEGTORI_CAMERA_AI_THINKER)
+#elif defined(TORI_CAMERA_AI_THINKER)
 
 constexpr int kCameraPinPwdn = 32;
 constexpr int kCameraPinReset = -1;
@@ -51,7 +51,7 @@ constexpr int kCameraFlashPin = 4;
 constexpr int kSnapButtonPin = -1;
 
 #else
-#error "Select a supported Segtori camera board in platformio.ini"
+#error "Select a supported Tori camera board in platformio.ini"
 #endif
 
 }  // namespace tori

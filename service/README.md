@@ -1,4 +1,4 @@
-# Segtori OCR Service
+# Tori OCR Service
 
 The service runs the warmed RapidOCR ONNX worker, matches recognized text
 against inventory data, persists scan diagnostics, and advertises the

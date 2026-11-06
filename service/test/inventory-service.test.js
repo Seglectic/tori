@@ -26,7 +26,7 @@ async function withLocalEnv(run) {
     AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID,
     AIRTABLE_TABLE_ID: process.env.AIRTABLE_TABLE_ID,
   };
-  const directory = await fs.mkdtemp(path.join(os.tmpdir(), "segtori-inventory-"));
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), "tori-inventory-"));
   process.env.INVENTORY_BACKEND = "local";
   process.env.LOCAL_DB_PATH = path.join(directory, "inventory.sqlite");
 

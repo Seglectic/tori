@@ -43,28 +43,22 @@ function readInventoryBackend(value) {
   return backend;
 }
 
+// TORI_* is canonical; SEGTORI_* is read so pre-rename .env files keep working.
+function readEnv(name, fallback = "") {
+  return process.env[`TORI_${name}`] || process.env[`SEGTORI_${name}`] || fallback;
+}
+
 function loadConfig() {
-  const serviceName =
-    process.env.SEGTORI_SERVICE_NAME ||
-    process.env.SEGTORI_MDNS_NAME ||
-    process.env.TORI_SERVICE_NAME ||
-    process.env.TORI_MDNS_NAME ||
-    "segtori-ocr";
-  const mdnsName =
-    process.env.SEGTORI_MDNS_NAME ||
-    process.env.TORI_MDNS_NAME ||
-    "segtori-ocr";
+  const mdnsName = readEnv("MDNS_NAME", "tori");
+  const serviceName = readEnv("SERVICE_NAME", mdnsName);
 
   return {
     serviceName,
-    serviceVersion:
-      process.env.SEGTORI_SERVICE_VERSION ||
-      process.env.TORI_SERVICE_VERSION ||
-      packageJson.version,
+    serviceVersion: readEnv("SERVICE_VERSION", packageJson.version),
     port: readNumber(process.env.PORT, 8674),
     mdnsName,
-    mdnsHost: process.env.SEGTORI_MDNS_HOST || "tori.local",
-    mdnsInterface: process.env.SEGTORI_MDNS_INTERFACE || "",
+    mdnsHost: readEnv("MDNS_HOST", "tori.local"),
+    mdnsInterface: readEnv("MDNS_INTERFACE"),
     match: {
       maxCandidates: readNumber(process.env.MATCH_MAX_CANDIDATES, 5),
       minScore: Number.parseFloat(process.env.MATCH_MIN_SCORE || "0.55"),

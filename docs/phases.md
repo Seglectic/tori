@@ -1,4 +1,4 @@
-# Segtori Phases
+# Tori Phases
 
 The roadmap is split into one file per phase so implementation guidance stays focused instead of accreting into a single long document.
 

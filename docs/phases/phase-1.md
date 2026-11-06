@@ -35,7 +35,7 @@ Phase 1 builds the smallest useful read-only scan-and-identify system.
 ## Goals
 
 - Device can capture an image on button press.
-- Device can discover or connect to the Segtori server.
+- Device can discover or connect to the Tori server.
 - Server can OCR the image with the system `tesseract` binary.
 - Server can fetch Airtable inventory records.
 - Server can fuzzy-match OCR text to ranked inventory candidates.

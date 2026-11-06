@@ -1,6 +1,6 @@
 // ╭──────────────────────────────╮
 // │  mDNS Advertisement          │
-// │  Publishes the Segtori HTTP  │
+// │  Publishes the Tori HTTP     │
 // │  service when a Bonjour      │
 // │  implementation is present.  │
 // ╰──────────────────────────────╯
@@ -15,6 +15,8 @@ try {
   BonjourService = null;
 }
 
+const MDNS_SERVICE_TYPE = "tori";
+const LEGACY_MDNS_SERVICE_TYPES = ["segtori-ocr", "tori-ocr"];
 const VIRTUAL_INTERFACE_PATTERN = /^(br-|cni|docker|podman|tailscale|tun|veth|virbr)/;
 
 function selectLanAddresses(interfaceName = "", interfaces = os.networkInterfaces()) {
@@ -51,29 +53,34 @@ function startMdnsAdvertisement(config, logger = console) {
   const bonjour = new BonjourService(
     config.mdnsInterface ? { interface: config.mdnsInterface } : {},
   );
-  const publication = bonjour.publish({
-    name: config.mdnsName,
-    host: config.mdnsHost,
-    type: "segtori-ocr",
-    protocol: "tcp",
-    port: config.port,
-    disableIPv6: true,
-  });
   const lanAddresses = selectLanAddresses(config.mdnsInterface);
-  const createRecords = publication.records.bind(publication);
+  // Devices flashed before the rename browse the legacy types; drop them once
+  // every handheld has been reflashed with the `tori` service type.
+  const serviceTypes = [MDNS_SERVICE_TYPE, ...LEGACY_MDNS_SERVICE_TYPES];
+  for (const type of serviceTypes) {
+    const publication = bonjour.publish({
+      name: config.mdnsName,
+      host: config.mdnsHost,
+      type,
+      protocol: "tcp",
+      port: config.port,
+      disableIPv6: true,
+    });
+    const createRecords = publication.records.bind(publication);
 
-  // Bonjour otherwise assigns tori.local to Docker and VPN interfaces too.
-  publication.records = () =>
-    createRecords().filter((record) => record.type !== "A" || lanAddresses.includes(record.data));
+    // Bonjour otherwise assigns tori.local to Docker and VPN interfaces too.
+    publication.records = () =>
+      createRecords().filter((record) => record.type !== "A" || lanAddresses.includes(record.data));
+  }
 
   const interfaceLabel = config.mdnsInterface || "all interfaces";
   logger.info(
-    `[mdns] advertising ${config.mdnsName} at ${config.mdnsHost}:${config.port} via ${interfaceLabel} (${lanAddresses.join(", ")})`,
+    `[mdns] advertising ${config.mdnsName} (${serviceTypes.map((type) => `_${type}._tcp`).join(", ")}) at ${config.mdnsHost}:${config.port} via ${interfaceLabel} (${lanAddresses.join(", ")})`,
   );
 
   return {
     stop() {
-      publication.stop(() => {
+      bonjour.unpublishAll(() => {
         bonjour.destroy();
       });
       logger.info("[mdns] advertisement stopped");
@@ -82,6 +89,8 @@ function startMdnsAdvertisement(config, logger = console) {
 }
 
 module.exports = {
+  LEGACY_MDNS_SERVICE_TYPES,
+  MDNS_SERVICE_TYPE,
   selectLanAddresses,
   startMdnsAdvertisement,
 };

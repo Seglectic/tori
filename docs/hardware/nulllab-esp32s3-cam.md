@@ -4,7 +4,7 @@ The primary Phase 1 development board is the
 [nulllab ESP32-S3-CAM](https://github.com/nulllaborg/esp32s3-cam).
 The upstream repository remains the source of truth for the complete
 [schematic](https://github.com/nulllaborg/esp32s3-cam/blob/main/esp32s3_cam_sch.pdf).
-This document records the board details that directly affect Segtori.
+This document records the board details that directly affect Tori.
 
 ## Board Configuration
 
@@ -16,12 +16,12 @@ This document records the board details that directly affect Segtori.
 - Programming and serial monitoring: native USB-C USB Serial/JTAG
 - PlatformIO environment: `nulllab_esp32s3_cam`
 
-## Segtori-Relevant Pins
+## Tori-Relevant Pins
 
 | Function | GPIO | Notes |
 | --- | ---: | --- |
 | Boot / current snap button | 0 | Active-low; holding during reset enters download mode |
-| Double white camera flashlight | 3 | Active-high; Segtori drives it low at boot |
+| Double white camera flashlight | 3 | Active-high; Tori drives it low at boot |
 | Camera SCCB SDA | 4 | Camera control bus |
 | Camera SCCB SCL | 5 | Camera control bus |
 | Camera VSYNC | 6 | Camera interface |
@@ -47,7 +47,7 @@ This document records the board details that directly affect Segtori.
 The ESP32-S3R8 has sufficient compute and 8 MB PSRAM for the complete handheld
 workflow with a modest SPI preview display. A 320x240 RGB565 frame is about
 150 KB, and a 40 MHz write-only SPI bus transfers one raw frame in roughly
-31 ms before JPEG decode and controller overhead. Segtori should target an
+31 ms before JPEG decode and controller overhead. Tori should target an
 8-10 FPS framing preview rather than video-rate output.
 
 The display backend should decode each QVGA JPEG preview into small RGB565
@@ -134,7 +134,7 @@ schematic shows GPIO3 driving both SS8050 transistor bases through a shared
 3.3 V through its own 2 kΩ resistor.
 
 The flashlight is active-high, controlled as a pair, and can appear dim or
-flicker if GPIO3 is left unconfigured. Segtori configures GPIO3 for PWM and
+flicker if GPIO3 is left unconfigured. Tori configures GPIO3 for PWM and
 holds it off immediately at boot.
 
 When a snap is accepted, the firmware turns the flashlight fully on before
@@ -147,7 +147,7 @@ paths also fade the flashlight out so it cannot remain stuck on.
 - A yellow/green charge-status LED is connected to the battery charger IC. It
   is not controlled by ESP32 firmware.
 - A separate yellow/green extension-interface LED is connected to GPIO2. It is
-  not currently used by Segtori.
+  not currently used by Tori.
 
 ## Power Notes
 
@@ -156,7 +156,7 @@ and onboard regulators. The camera and ESP32 can normally become warm during
 operation, but a board that becomes too hot to comfortably touch should be
 disconnected and inspected.
 
-Segtori reduces idle load by shutting down the camera and lowering CPU
+Tori reduces idle load by shutting down the camera and lowering CPU
 frequency between snaps. During capture, the CPU returns to full speed to
 support reliable camera DMA. Preview mode keeps the CPU and camera active, so
 display brightness and preview duration will materially affect battery life.

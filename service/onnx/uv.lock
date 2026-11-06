@@ -498,7 +498,7 @@ wheels = [
 ]
 
 [[package]]
-name = "segtori-onnx-ocr"
+name = "tori-onnx-ocr"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

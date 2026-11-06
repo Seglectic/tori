@@ -1,8 +1,8 @@
 # ╭──────────────────────────────╮
-# │  Segtori Server Tester      │
-# │  Runs a local Textual TUI   │
-# │  for discovery, OCR scans,  │
-# │  and text-match requests.   │
+# │  Tori Server Tester          │
+# │  Runs a local Textual TUI    │
+# │  for discovery, OCR scans,   │
+# │  and text-match requests.    │
 # ╰──────────────────────────────╯
 #
 # /// script
@@ -31,7 +31,7 @@ from textual.widgets import Button, DataTable, Footer, Header, Input, Label, Sta
 from zeroconf import ServiceBrowser, ServiceInfo, Zeroconf
 
 
-SERVICE_TYPE = "_segtori-ocr._tcp.local."
+SERVICE_TYPE = "_tori._tcp.local."
 DEFAULT_PORT = 8674
 
 
@@ -170,8 +170,8 @@ class ErrorMessage(Message):
         super().__init__()
 
 
-class SegtoriTesterApp(App[None]):
-    TITLE = "Segtori Tester"
+class ToriTesterApp(App[None]):
+    TITLE = "Tori Tester"
     CSS = """
     Screen {
         layout: vertical;
@@ -462,4 +462,4 @@ class SegtoriTesterApp(App[None]):
 
 
 if __name__ == "__main__":
-    SegtoriTesterApp().run()
+    ToriTesterApp().run()

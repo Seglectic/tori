@@ -1,13 +1,13 @@
-# Segtori Architecture
+# Tori Architecture
 
-Segtori has two primary subsystems: firmware on the handheld ESP32 device and an OCR/inventory service on the local network.
+Tori has two primary subsystems: firmware on the handheld ESP32 device and an OCR/inventory service on the local network.
 
 ## Firmware
 
 The firmware is responsible for the physical user workflow:
 
 - Connect to Wi-Fi.
-- Discover the Segtori OCR service with mDNS.
+- Discover the Tori OCR service with mDNS.
 - Capture still images with supported OV2640 and OV3660 cameras.
 - Upload images to the server.
 - Render scan status, match results, quantity editing, and error states.
@@ -57,11 +57,18 @@ current warm-worker shape.
 
 The server should advertise an HTTP service over mDNS:
 
-- Service type: `_segtori-ocr._tcp.local`
-- Default instance name: `segtori-ocr`
+- Service type: `_tori._tcp.local`
+- Default instance name: `tori`
 - Default port: `8674`
 
 The firmware should try mDNS discovery first. If discovery fails, it should use a configured fallback host and port.
+
+During the rename transition the service also advertises the legacy
+`_segtori-ocr._tcp` and `_tori-ocr._tcp` types so handhelds flashed before the
+rename still resolve it. Remove `LEGACY_MDNS_SERVICE_TYPES` in
+`service/src/services/discovery.js` once every device runs current firmware.
+Service settings use `TORI_*` environment variables; `SEGTORI_*` names are
+still read as a fallback.
 
 ## HTTP API
 
@@ -74,7 +81,7 @@ Example response:
 ```json
 {
   "ok": true,
-  "service": "segtori-ocr",
+  "service": "tori",
   "version": "0.1.0"
 }
 ```

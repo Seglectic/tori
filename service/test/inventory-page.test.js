@@ -12,7 +12,7 @@ const { renderDashboard } = require("../src/routes/jobs");
 
 function makeConfig() {
   return {
-    serviceName: "segtori-ocr",
+    serviceName: "tori",
     port: 8674,
     ocr: { backend: "onnx" },
     airtable: {

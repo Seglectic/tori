@@ -86,7 +86,7 @@ function renderDashboard(config) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Segtori Jobs</title>
+  <title>Tori Jobs</title>
   <style>
     :root{color-scheme:dark;--bg:#0b1012;--panel:#12191d;--line:#2b373c;--text:#edf4ef;--muted:#98a9a2;--accent:#d4ff67;--bad:#ff8d8d;--warn:#ffca72}
     *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -104,7 +104,7 @@ function renderDashboard(config) {
 <body>
   <div class="dropzone" id="dropzone" aria-hidden="true">Drop images to scan</div>
   <header>
-    <div><div class="sub">Seglectic Tagged Object Recognition Interface</div><h1>Scan Jobs</h1></div>
+    <div><div class="sub">Tagged Object Recognition Interface</div><h1>Scan Jobs</h1></div>
     <div class="header-tools"><a class="nav-link" href="/">Inventory</a><div class="sub live-shell"><span class="live"></span><span id="connection">Connecting</span> · <span id="loaded">0</span> loaded · ${config.serviceName}:${config.port}</div></div>
   </header>
   <main id="jobs"></main>
