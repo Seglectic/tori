@@ -5,19 +5,29 @@ it when a capability is demonstrated end to end, not merely scaffolded.
 
 ## Current Position
 
-- Active phase: **Phase 5: Device UX And Provisioning**
+- Active phase: **Phase 5: Codes And General Item Model**
 - Phase 0: complete
 - Phase 1: complete
 - Phase 2: complete
 - Phase 3: complete
 - Phase 4: complete
-- Phase 5: in progress
+- Phase 5: not started
+- Phase 6: not started
+- Phase 7: two items carried forward from the original Phase 5 are complete
+- Phase 8: not started
+
+Tori is a general-purpose local inventory system. It has two target
+inventories: home electronics parts (MCUs, passives, fasteners) and shop
+cutting tools (endmills, drills). All recognition, including ingest drafting,
+stays on local hardware.
 
 Phase 1 is complete as a read-only scan-and-identify MVP. Airtable inventory
 reads and ranked OCR-to-inventory candidates are available for Phase 2 accuracy
 work. Airtable writes remain intentionally disabled, while the Phase 4 local
 SQLite backend now owns writable quantity editing, local item creation, file
 import/export, and explicit one-time Airtable migration.
+
+Dated progress notes live in [log.md](./log.md).
 
 ## Phase 0: Project Scaffolding
 
@@ -102,7 +112,7 @@ import/export, and explicit one-time Airtable migration.
 
 Formal labeled-ground-truth evaluation remains useful when accuracy tuning
 resumes, but it is no longer a Phase 2 completion blocker. Candidate-selection
-UX is deferred to Phase 5 because it belongs with the physical display,
+UX is deferred to Phase 7 because it belongs with the physical display,
 D-pad, and confirmation controls.
 
 The initial unlabeled paired-dataset benchmark improved non-empty OCR from
@@ -192,8 +202,8 @@ backend for compact UI rendering. The disabled default backend keeps current
 hardware behavior unchanged. A selected panel backend should use block-based
 JPEG-to-RGB565 decode and pause naturally during final capture and upload.
 Repurposing the unused TF-card GPIO38/39/40 pads is the leading SPI wiring
-direction, but final panel control wiring and battery impact remain Phase 6
-hardware-validation work.
+direction, but final panel control wiring and battery impact remain Phase 7
+and Phase 8 hardware work.
 
 ## Phase 3: Containerized Network Service
 
@@ -220,10 +230,11 @@ the container health endpoint, completing Phase 3 service-discovery validation.
 
 ## Next Work Queue
 
-1. Persist Wi-Fi and fallback server settings without recompiling firmware.
-2. Add on-device provisioning mode.
-3. Add candidate browsing and confirmation on handheld controls.
-4. Add quantity editing and submission on the device display workflow.
+1. Extend the local item schema with categories, attributes, codes, and photos.
+2. Add server-side code decoding ahead of OCR in `POST /api/scan`.
+3. Measure OV3660 code decode reliability against size and distance.
+4. Settle the Tori label payload format before printing any labels.
+5. Benchmark GPU-resident local VLMs for Phase 6 drafting.
 
 ## Tracking Approach
 

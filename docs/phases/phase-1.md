@@ -96,8 +96,8 @@ Required flow:
 7. Show success or failure feedback.
 
 Physical display, dedicated control, and quantity-edit workflows are deferred
-to Phase 5. Camera orientation and enclosure validation are deferred to Phase
-6.
+to Phase 7. Camera orientation and enclosure validation are deferred to Phase
+8.
 
 ## Container Direction
 

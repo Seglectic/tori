@@ -41,7 +41,7 @@ confidence behavior, diagnostics, and handheld latency measurements.
 - Compare OCR backends against a labeled holdout set before making future model
   or preprocessing changes.
 - Implement candidate browsing and confirmation with the physical handheld UX
-  in Phase 5.
+  in Phase 7.
 
 ## Goals
 
@@ -101,7 +101,7 @@ The server diagnostic web interface should make this information easy to scan:
 ## Firmware Behavior
 
 The firmware API remains the same. Candidate browsing and confirmation are
-deferred to Phase 5, where the physical display and controls own that behavior:
+deferred to Phase 7, where the physical display and controls own that behavior:
 
 - Show the best match when confidence is high.
 - Show candidate selection when confidence is below the configured threshold.

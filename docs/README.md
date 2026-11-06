@@ -1,6 +1,6 @@
 # Tori Documentation
 
-Tori, the Tagged Object Recognition Interface, is a handheld inventory device built around an ESP32-CAM and a small network OCR service. The device captures a label or tag image, sends it to a local server, receives the best matching inventory item, and lets the operator adjust quantity from the device controls.
+Tori, the Tagged Object Recognition Interface, is a general-purpose local inventory system with a handheld ESP32 camera device. The device scans 1D/2D codes or captures label images, sends them to a local server, receives the best matching inventory item, and lets the operator adjust quantity from the device controls. New items are ingested from photos, with local models drafting the record for operator review. It is aimed at two inventories: home electronics parts and shop cutting tools.
 
 The project is split into two entry points:
 
@@ -17,8 +17,8 @@ The first useful version prioritizes a narrow loop:
 1. Press a hardware button.
 2. Capture an image with a supported OV2640 or OV3660 camera.
 3. Upload the image to the Tori server.
-4. Run OCR with Tesseract.
-5. Match recognized text against inventory items.
+4. Decode codes, or run OCR when no known code is present.
+5. Match codes or recognized text against inventory items.
 6. Return the best item match to the device.
 7. Adjust item quantity with the D-pad.
 8. Send the updated quantity back to the inventory backend.
@@ -28,10 +28,10 @@ The first useful version prioritizes a narrow loop:
 The active roadmap lives in [phases.md](./phases.md), which now indexes one file per phase under [`docs/phases/`](./phases/phase-0.md).
 Current checked progress and the immediate work queue live in [status.md](./status.md).
 
-- Phase 0 defines scaffolding, repository shape, and conventions.
-- Phase 1 builds a small MVP using Node.js, system-installed Tesseract, Airtable, and ESP32 firmware.
-- Phase 2 improves OCR preprocessing, match quality, confidence handling, and scan diagnostics.
-- Later phases add the containerized OCR service, local inventory storage, richer device setup/UI, and production hardware refinements.
+- Phases 0–4 are complete: scaffolding, the scan-and-identify MVP, OCR accuracy, the containerized service, and the local SQLite backend.
+- Phase 5 adds categories, typed attributes, code scanning, and Tori labels.
+- Phase 6 adds local-model photo ingest with a review queue.
+- Phase 7 designs Handheld v1 and its on-device UX; Phase 8 validates it in the field.
 
 ## Architecture References
 
@@ -40,7 +40,7 @@ Current checked progress and the immediate work queue live in [status.md](./stat
 - [design.md](./design.md): device and screen design principles.
 - [hardware/nulllab-esp32s3-cam.md](./hardware/nulllab-esp32s3-cam.md): primary development board, relevant pins, flashlight circuit, and power notes.
 
-## Initial Defaults
+## Current Defaults
 
 - Primary firmware target: nulllab ESP32-S3-CAM using an OV3660 sensor.
 - Legacy firmware target: AI Thinker ESP32-CAM using an OV2640 sensor.
@@ -51,8 +51,8 @@ Current checked progress and the immediate work queue live in [status.md](./stat
 - Legacy diagnostic fallback: host-installed `tesseract` binary, outside the
   supported container deployment path.
 - Discovery: mDNS using `_tori._tcp.local`.
-- Inventory source: Airtable for Phase 1.
-- Local inventory backend: planned future support.
+- Inventory backends: local SQLite (writable) or Airtable (read-only).
+- Models: local only. No images or text are sent to cloud services.
 
 ## Development Defaults
 

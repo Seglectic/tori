@@ -1,6 +1,6 @@
 # Tori
 
-Tori, the Tagged Object Recognition Interface, is a handheld inventory tool built around an ESP32-CAM and a small OCR service on the local network.
+Tori, the Tagged Object Recognition Interface, is a general-purpose local inventory system: a handheld ESP32 camera device plus a recognition and inventory service on the local network.
 
 The device captures a label or bin tag, sends the image to the server, receives the closest inventory match, and lets the operator update quantity from the handheld controls.
 
@@ -8,7 +8,9 @@ The device captures a label or bin tag, sends the image to the server, receives 
 
 - captures still images on an ESP32-CAM
 - discovers the local Tori service over mDNS
-- runs OCR with Tesseract on the server
+- runs OCR on the server (RapidOCR ONNX on GPU, Tesseract fallback)
+- serves a local inventory console backed by SQLite or Airtable
+- planned: 1D/2D code scanning, Tori labels, and local-model photo ingest
 - matches recognized text against inventory records
 - returns the best match plus ranked candidates
 - updates quantity through a stable device-facing API

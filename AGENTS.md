@@ -4,12 +4,12 @@ This file gives coding agents the minimum context needed to work safely in this 
 
 ## Project Summary
 
-Tori, the Tagged Object Recognition Interface, is a handheld inventory device. The ESP32-CAM firmware captures images and sends them to a local OCR service, which reads text, matches it against inventory data, and returns an item record so quantity can be updated from the device.
+Tori, the Tagged Object Recognition Interface, is a general-purpose local inventory system with a handheld ESP32 camera device. The firmware captures images and sends them to the local service, which decodes 1D/2D codes or reads label text, matches against inventory data, and returns an item record so quantity can be updated from the device. New items are ingested from photos, with local models drafting records for operator review. Target inventories are home electronics parts and shop cutting tools.
 
 Primary responsibilities:
 
 - `firmware/`: ESP32-CAM capture, Wi-Fi, service discovery, display states, buttons, D-pad input, and server requests.
-- `service/`: OCR service, Tesseract integration, inventory backend integration, matching, scan diagnostics, Docker packaging, and mDNS advertisement.
+- `service/`: code decoding, OCR (RapidOCR ONNX, Tesseract fallback), ingest drafting, inventory backend integration, matching, scan diagnostics, Docker packaging, and mDNS advertisement.
 - `docs/`: project phases, architecture, and design direction.
 - `util/`: developer utilities, including local service testers that exercise the firmware-facing server flow without the ESP32.
 
@@ -79,7 +79,8 @@ Avoid:
 - Keep `GET /api/health`, `POST /api/scan`, and `POST /api/items/:id/quantity` stable for the device.
 - Keep Airtable and local inventory behind a consistent server API.
 - Keep scan quality improvements server-side where they can be tuned without reflashing firmware.
-- Make Tesseract and image preprocessing behavior debuggable.
+- Make OCR, code decoding, and image preprocessing behavior debuggable.
+- Keep all recognition local. Do not add cloud model or cloud OCR backends.
 - Avoid introducing dependencies unless they clearly improve OCR, matching, deployment, or reliability.
 - Treat scan debug images as diagnostic output, not source files.
 
