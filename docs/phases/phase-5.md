@@ -29,8 +29,8 @@ falling back to OCR.
 
 ### Tori Labels
 
-- [ ] Define the Tori label payload format.
-- [ ] Generate printable QR and Data Matrix labels for an item.
+- [x] Define the Tori label payload format.
+- [ ] Generate printable QR, Data Matrix, and Code 128 labels for an item.
 - [ ] Serve an item page at the label URL so a phone camera can open it.
 - [ ] Print labels in batches from the inventory console.
 
@@ -113,12 +113,32 @@ moving to an autofocus sensor such as the OV5640 AF in Phase 7.
 
 ## Tori Labels
 
-The proposed payload is a short URL such as `http://tori.local/i/7K3QX`, using a
-Crockford base32 item ID. A phone camera can open the item page directly, and
-the handheld matches the ID path. Very small labels for tool holders or reel
-edges can print the bare ID as a Data Matrix symbol. The final format must be
-settled before the first labels are printed, since printed labels are
-effectively permanent.
+Every label encodes the same permanent Tori item ID. The symbology is a
+per-label choice:
+
+| Symbology | Payload | Use |
+| --- | --- | --- |
+| QR | Item URL, e.g. `HTTP://TORI.LOCAL/I/7K3QX` | Default. Any phone camera app opens the item page. |
+| Data Matrix | Bare ID, e.g. `7K3QX` | Small labels: tool holders, reel edges, small bins. |
+| Code 128 | Bare ID | Long narrow labels: bin edges, shelf strips, USB scanner guns. |
+
+ID and payload rules:
+
+- IDs use Crockford base32: uppercase, no ambiguous `I/L/O/U`, and safe in all
+  three symbologies.
+- QR URLs are written in uppercase so they encode in QR alphanumeric mode,
+  which gives smaller codes. The item route must therefore match
+  case-insensitively.
+- The URL base is a service setting, not part of the ID. Android phones do not
+  reliably resolve `.local` names, so a LAN hostname or proxy may be needed.
+  Labels printed with one base must keep resolving if the base changes.
+- Scanners accept either a bare ID or any URL ending in `/I/<ID>`.
+- The item page shows what the item is and where it belongs: name, category,
+  key attributes, location, and photo.
+
+On-device decoding (Phase 7) covers QR first, using the quirc library, then
+Code 128. No ESP32 Data Matrix decoder was found, so Data Matrix labels are
+decoded server-side from a snap unless libdmtx is ported later.
 
 ## Acceptance Criteria
 

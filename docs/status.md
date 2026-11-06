@@ -233,7 +233,7 @@ the container health endpoint, completing Phase 3 service-discovery validation.
 1. Extend the local item schema with categories, attributes, codes, and photos.
 2. Add server-side code decoding ahead of OCR in `POST /api/scan`.
 3. Measure OV3660 code decode reliability against size and distance.
-4. Settle the Tori label payload format before printing any labels.
+4. Prototype on-device QR decoding during warmed preview, then Code 128.
 5. Benchmark GPU-resident local VLMs for Phase 6 drafting.
 
 ## Tracking Approach

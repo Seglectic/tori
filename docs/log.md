@@ -6,6 +6,9 @@ detailed checklists live in the phase files and measurements in
 
 ## 2026-11-06
 
+- Settled the Tori label format: one permanent base32 ID, printed as a QR
+  item URL (phone-compatible), a bare-ID Data Matrix, or a bare-ID Code 128.
+  On-device decoding targets QR first, then Code 128.
 - Renamed the project from Segtori to Tori across firmware, service, docs,
   and utilities. mDNS type is now `_tori._tcp`; the service also advertises
   `_segtori-ocr._tcp` and `_tori-ocr._tcp` until every handheld is reflashed.
